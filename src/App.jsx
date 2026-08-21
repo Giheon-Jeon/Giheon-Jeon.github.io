@@ -2,7 +2,7 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import AnimatedBackground from "./AnimatedBackground.jsx";
 import LinkCard from "./LinkCard.jsx";
-import { profile, links, socials, email } from "./links.js";
+import { profile, links, emails, socials } from "./links.js";
 
 const ICONS = {
   instagram: (
@@ -10,9 +10,9 @@ const ICONS = {
       <path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.06 2.1.24 2.9.55.7.27 1.3.65 1.9 1.25.6.6 1 1.2 1.25 1.9.3.8.48 1.7.55 2.9.06 1.3.07 1.7.07 4.9s0 3.6-.07 4.9c-.06 1.2-.24 2.1-.55 2.9-.27.7-.65 1.3-1.25 1.9-.6.6-1.2 1-1.9 1.25-.8.3-1.7.48-2.9.55-1.3.06-1.7.07-4.9.07s-3.6 0-4.9-.07c-1.2-.06-2.1-.24-2.9-.55-.7-.27-1.3-.65-1.9-1.25-.6-.6-1-1.2-1.25-1.9-.3-.8-.48-1.7-.55-2.9C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.9c.06-1.2.24-2.1.55-2.9.27-.7.65-1.3 1.25-1.9.6-.6 1.2-1 1.9-1.25.8-.3 1.7-.48 2.9-.55C8.4 2.2 8.8 2.2 12 2.2zm0 1.8c-3.15 0-3.5 0-4.75.07-1 .05-1.6.2-1.98.35-.5.19-.86.42-1.24.8-.38.38-.6.74-.8 1.24-.14.38-.3 1-.35 1.98C2.8 8.5 2.8 8.85 2.8 12s0 3.5.07 4.75c.05 1 .2 1.6.35 1.98.19.5.42.86.8 1.24.38.38.74.6 1.24.8.38.14 1 .3 1.98.35 1.25.07 1.6.07 4.75.07s3.5 0 4.75-.07c1-.05 1.6-.2 1.98-.35.5-.19.86-.42 1.24-.8.38-.38.6-.74.8-1.24.14-.38.3-1 .35-1.98.07-1.25.07-1.6.07-4.75s0-3.5-.07-4.75c-.05-1-.2-1.6-.35-1.98-.19-.5-.42-.86-.8-1.24-.38-.38-.74-.6-1.24-.8-.38-.14-1-.3-1.98-.35C15.5 4 15.15 4 12 4zm0 3.4a4.6 4.6 0 110 9.2 4.6 4.6 0 010-9.2zm0 1.8a2.8 2.8 0 100 5.6 2.8 2.8 0 000-5.6zm5.85-2a1.08 1.08 0 11-2.16 0 1.08 1.08 0 012.16 0z" />
     </svg>
   ),
-  youtube: (
+  github: (
     <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-      <path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 00.5 6.2 31 31 0 000 12a31 31 0 00.5 5.8 3 3 0 002.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 002.1-2.1A31 31 0 0024 12a31 31 0 00-.5-5.8zM9.6 15.5v-7l6.3 3.5-6.3 3.5z" />
+      <path d="M12 2C6.48 2 2 6.58 2 12.19c0 4.49 2.87 8.3 6.84 9.64.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.88-2.78.61-3.37-1.21-3.37-1.21-.46-1.19-1.11-1.51-1.11-1.51-.91-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.72 0 0 .84-.28 2.75 1.05a9.3 9.3 0 015 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.46.1 2.72.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.79-4.57 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.02 10.02 0 0022 12.19C22 6.58 17.52 2 12 2z" />
     </svg>
   ),
   email: (
@@ -32,10 +32,10 @@ export default function App() {
     showToast._t = window.setTimeout(() => setToast(null), 1800);
   };
 
-  const copyEmail = async () => {
+  const copyEmail = async (address) => {
     try {
-      await navigator.clipboard.writeText(email);
-      showToast("이메일 주소가 복사되었어요 ✨");
+      await navigator.clipboard.writeText(address);
+      showToast(`${address} 복사되었어요 ✨`);
     } catch {
       showToast("복사에 실패했어요. 다시 시도해주세요.");
     }
@@ -79,17 +79,22 @@ export default function App() {
             <LinkCard key={link.id} link={link} index={i} />
           ))}
 
-          <motion.button
-            type="button"
-            onClick={copyEmail}
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.35 + links.length * 0.08, duration: 0.5, ease: "easeOut" }}
-            whileTap={{ scale: 0.96 }}
-            className="flex items-center justify-center gap-2 w-full rounded-2xl bg-white/80 text-stone-800 font-medium py-3.5 px-5 text-sm sm:text-base ring-1 ring-stone-200"
-          >
-            ✉️ 이메일 복사하기
-          </motion.button>
+          <div className="flex gap-3">
+            {emails.map((e, i) => (
+              <motion.button
+                key={e.id}
+                type="button"
+                onClick={() => copyEmail(e.address)}
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.35 + (links.length + i) * 0.08, duration: 0.5, ease: "easeOut" }}
+                whileTap={{ scale: 0.96 }}
+                className="flex-1 flex items-center justify-center gap-1.5 rounded-2xl bg-white/80 text-stone-800 font-medium py-3.5 px-3 text-xs sm:text-sm ring-1 ring-stone-200"
+              >
+                {e.emoji} {e.label}
+              </motion.button>
+            ))}
+          </div>
         </section>
 
         <section className="flex flex-col items-center gap-4 pt-2 border-t border-stone-200/70">
