@@ -1,47 +1,166 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="CSS/style.css"/>
-    <title>Momentum</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>지현 | Link Tree</title>
+<meta name="description" content="지현의 링크 모음" />
+
+<!-- Pretendard 폰트 (CDN 허용 항목) -->
+<link rel="stylesheet" as="style" crossorigin
+  href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+
+<!-- Tailwind CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          pretendard: ["Pretendard", "-apple-system", "BlinkMacSystemFont", "system-ui", "sans-serif"],
+        },
+      },
+    },
+  };
+</script>
+
+<style>
+  body {
+    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  }
+  /* 따뜻한 톤의 그라데이션 배경 */
+  .bg-warm-gradient {
+    background: linear-gradient(160deg, #fdf6ec 0%, #f8e9d2 35%, #f3d9b8 70%, #eec89e 100%);
+  }
+  .link-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  }
+  .link-card:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 10px 24px -8px rgba(120, 80, 40, 0.35);
+  }
+  .link-card:active {
+    transform: translateY(0) scale(0.99);
+  }
+  .social-icon {
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+  .social-icon:hover {
+    transform: translateY(-2px);
+    opacity: 0.75;
+  }
+  .profile-img {
+    transition: transform 0.3s ease;
+  }
+  .profile-img:hover {
+    transform: rotate(-3deg) scale(1.04);
+  }
+  @keyframes toast-in {
+    from { opacity: 0; transform: translate(-50%, 8px); }
+    to { opacity: 1; transform: translate(-50%, 0); }
+  }
+  #toast.show {
+    animation: toast-in 0.25s ease forwards;
+  }
+</style>
 </head>
-<body>
-    <form class="hidden" id="login-form">
-        <input 
-        required
-        maxlength="15"
-        type="text" 
-        placeholder="What is your name?" 
-        />
-        <button>Log In</button>
-    </form>
-    <h2 id="clock">00:00:00</h2>
-    <h1 id="greeting" class="hidden"></h1>
-    <form id = "todo-form">
-        <input 
-        required
-        maxlength="30"
-        type="text" 
-        placeholder="Write a list and Press Enter" 
-        />
-        <button>Add</button>
-    </form>
-    <ul id="todo-list"></ul>
-    <div id="quote">
-        <span></span>
-        <span></span>
-    </div>
-    <div id="weather" >
-        <span></span>
-        <span></span>
-    </div>
-    <script src="js/greetings.js"></script>
-    <script src="js/clock.js"></script>
-    <script src="js/quotes.js"></script>
-    <script src="js/background.js"></script>
-    <script src="js/todo.js"></script>
-    <script src="js/weather.js"></script>
+
+<body class="bg-warm-gradient min-h-screen flex items-center justify-center p-6">
+
+  <!-- 중앙 카드 -->
+  <main class="w-full max-w-[420px] bg-white/70 backdrop-blur-md rounded-3xl shadow-xl shadow-orange-900/10 ring-1 ring-white/60 p-8 sm:p-10 flex flex-col gap-8">
+
+    <!-- 상단: 프로필 영역 -->
+    <section class="flex flex-col items-center text-center gap-3">
+      <img
+        src="https://placehold.co/160x160/f3d9b8/6b4423?text=%3A%29&font=roboto"
+        alt="프로필 사진"
+        class="profile-img w-24 h-24 rounded-full object-cover ring-4 ring-white shadow-md"
+      />
+      <div>
+        <h1 class="text-lg font-bold text-stone-800">지현 (Jihyun)</h1>
+        <p class="mt-1 text-sm text-stone-500 leading-relaxed">
+          기록하는 걸 좋아하는 사람 🌿<br />
+          아래에서 제 다른 공간들을 만나보세요
+        </p>
+      </div>
+    </section>
+
+    <!-- 중단: 링크 버튼 목록 -->
+    <section class="flex flex-col gap-3" id="link-list">
+      <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"
+         class="link-card flex items-center justify-center gap-2 w-full rounded-2xl bg-stone-800 text-white font-medium py-3.5 px-5 text-sm sm:text-base">
+        📷 Instagram
+      </a>
+      <a href="https://blog.naver.com" target="_blank" rel="noopener noreferrer"
+         class="link-card flex items-center justify-center gap-2 w-full rounded-2xl bg-white text-stone-800 font-medium py-3.5 px-5 text-sm sm:text-base ring-1 ring-stone-200">
+        ✍️ 블로그
+      </a>
+      <a href="https://youtube.com" target="_blank" rel="noopener noreferrer"
+         class="link-card flex items-center justify-center gap-2 w-full rounded-2xl bg-white text-stone-800 font-medium py-3.5 px-5 text-sm sm:text-base ring-1 ring-stone-200">
+        ▶️ 유튜브
+      </a>
+      <button type="button" id="copy-email-btn" data-email="hello@example.com"
+         class="link-card flex items-center justify-center gap-2 w-full rounded-2xl bg-white text-stone-800 font-medium py-3.5 px-5 text-sm sm:text-base ring-1 ring-stone-200">
+        ✉️ 이메일 복사하기
+      </button>
+    </section>
+
+    <!-- 하단: 소셜 아이콘 + 카피라이트 -->
+    <section class="flex flex-col items-center gap-4 pt-2 border-t border-stone-200/70">
+      <div class="flex items-center gap-5 pt-4">
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="social-icon text-stone-600">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+            <path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.06 2.1.24 2.9.55.7.27 1.3.65 1.9 1.25.6.6 1 1.2 1.25 1.9.3.8.48 1.7.55 2.9.06 1.3.07 1.7.07 4.9s0 3.6-.07 4.9c-.06 1.2-.24 2.1-.55 2.9-.27.7-.65 1.3-1.25 1.9-.6.6-1.2 1-1.9 1.25-.8.3-1.7.48-2.9.55-1.3.06-1.7.07-4.9.07s-3.6 0-4.9-.07c-1.2-.06-2.1-.24-2.9-.55-.7-.27-1.3-.65-1.9-1.25-.6-.6-1-1.2-1.25-1.9-.3-.8-.48-1.7-.55-2.9C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.9c.06-1.2.24-2.1.55-2.9.27-.7.65-1.3 1.25-1.9.6-.6 1.2-1 1.9-1.25.8-.3 1.7-.48 2.9-.55C8.4 2.2 8.8 2.2 12 2.2zm0 1.8c-3.15 0-3.5 0-4.75.07-1 .05-1.6.2-1.98.35-.5.19-.86.42-1.24.8-.38.38-.6.74-.8 1.24-.14.38-.3 1-.35 1.98C2.8 8.5 2.8 8.85 2.8 12s0 3.5.07 4.75c.05 1 .2 1.6.35 1.98.19.5.42.86.8 1.24.38.38.74.6 1.24.8.38.14 1 .3 1.98.35 1.25.07 1.6.07 4.75.07s3.5 0 4.75-.07c1-.05 1.6-.2 1.98-.35.5-.19.86-.42 1.24-.8.38-.38.6-.74.8-1.24.14-.38.3-1 .35-1.98.07-1.25.07-1.6.07-4.75s0-3.5-.07-4.75c-.05-1-.2-1.6-.35-1.98-.19-.5-.42-.86-.8-1.24-.38-.38-.74-.6-1.24-.8-.38-.14-1-.3-1.98-.35C15.5 4 15.15 4 12 4zm0 3.4a4.6 4.6 0 110 9.2 4.6 4.6 0 010-9.2zm0 1.8a2.8 2.8 0 100 5.6 2.8 2.8 0 000-5.6zm5.85-2a1.08 1.08 0 11-2.16 0 1.08 1.08 0 012.16 0z"/>
+          </svg>
+        </a>
+        <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube" class="social-icon text-stone-600">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+            <path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 00.5 6.2 31 31 0 000 12a31 31 0 00.5 5.8 3 3 0 002.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 002.1-2.1A31 31 0 0024 12a31 31 0 00-.5-5.8zM9.6 15.5v-7l6.3 3.5-6.3 3.5z"/>
+          </svg>
+        </a>
+        <a href="mailto:hello@example.com" aria-label="이메일" class="social-icon text-stone-600">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="w-5 h-5">
+            <rect x="3" y="5" width="18" height="14" rx="2" />
+            <path d="M3 7l9 6 9-6" />
+          </svg>
+        </a>
+      </div>
+      <p class="text-xs text-stone-400" id="copyright"></p>
+    </section>
+  </main>
+
+  <!-- 복사 완료 토스트 -->
+  <div id="toast" class="hidden fixed bottom-8 left-1/2 -translate-x-1/2 bg-stone-800 text-white text-xs font-medium px-4 py-2.5 rounded-full shadow-lg z-50"></div>
+
+  <script>
+    // 하단 카피라이트 연도 자동 반영
+    document.getElementById("copyright").textContent = `© ${new Date().getFullYear()} Jihyun. All rights reserved.`;
+
+    // 이메일 복사 + 토스트 안내
+    const toast = document.getElementById("toast");
+    let toastTimer = null;
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.remove("hidden");
+      requestAnimationFrame(() => toast.classList.add("show"));
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.add("hidden");
+        toast.classList.remove("show");
+      }, 1800);
+    }
+
+    document.getElementById("copy-email-btn").addEventListener("click", async (e) => {
+      const email = e.currentTarget.dataset.email;
+      try {
+        await navigator.clipboard.writeText(email);
+        showToast("이메일 주소가 복사되었어요 ✨");
+      } catch (err) {
+        showToast("복사에 실패했어요. 다시 시도해주세요.");
+      }
+    });
+  </script>
 </body>
 </html>
-
