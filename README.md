@@ -4,10 +4,11 @@
 
 인스타그램 프로필에 걸어두는 나만의 링크 모음 페이지
 
-[![Demo](https://img.shields.io/badge/demo-giheon--jeon.github.io-f3d9b8?style=flat-square)](https://giheon-jeon.github.io/)
 ![React](https://img.shields.io/badge/React-18-61DAFB?style=flat-square&logo=react&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-5-646CFF?style=flat-square&logo=vite&logoColor=white)
 ![Tailwind](https://img.shields.io/badge/Tailwind-CSS-38BDF8?style=flat-square&logo=tailwindcss&logoColor=white)
+
+### 🔗 [giheon-jeon.github.io](https://giheon-jeon.github.io/)
 
 </div>
 
