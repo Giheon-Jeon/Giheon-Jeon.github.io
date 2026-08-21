@@ -4,6 +4,17 @@ import AnimatedBackground from "./AnimatedBackground.jsx";
 import LinkCard from "./LinkCard.jsx";
 import { profile, links, emails, socials } from "./links.js";
 
+const SPARKLE_EMOJIS = ["✨", "🌿", "💫", "⭐"];
+
+function getGreeting() {
+  const h = new Date().getHours();
+  if (h < 6) return { emoji: "🌙", text: "이 시간에 와주셨네요" };
+  if (h < 12) return { emoji: "☀️", text: "좋은 아침이에요" };
+  if (h < 18) return { emoji: "🌤️", text: "오늘도 좋은 하루예요" };
+  if (h < 22) return { emoji: "🌆", text: "편안한 저녁 되세요" };
+  return { emoji: "🌙", text: "늦은 시간까지 고생 많으세요" };
+}
+
 const ICONS = {
   instagram: (
     <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
@@ -25,6 +36,23 @@ const ICONS = {
 
 export default function App() {
   const [toast, setToast] = useState(null);
+  const [sparkles, setSparkles] = useState([]);
+  const greeting = getGreeting();
+
+  const burstSparkles = () => {
+    const batchId = Date.now();
+    const count = 6;
+    const particles = Array.from({ length: count }).map((_, i) => ({
+      id: `${batchId}-${i}`,
+      angle: (360 / count) * i + Math.random() * 24 - 12,
+      emoji: SPARKLE_EMOJIS[i % SPARKLE_EMOJIS.length],
+    }));
+    setSparkles((prev) => [...prev, ...particles]);
+  };
+
+  const removeSparkle = (id) => {
+    setSparkles((prev) => prev.filter((p) => p.id !== id));
+  };
 
   const showToast = (message) => {
     setToast(message);
@@ -45,34 +73,76 @@ export default function App() {
     <div className="relative min-h-[100dvh] flex items-center justify-center p-6 font-pretendard">
       <AnimatedBackground />
 
-      <motion.main
-        initial={{ y: 16 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="relative w-full max-w-[420px] bg-white/70 backdrop-blur-md rounded-3xl shadow-xl shadow-orange-900/10 ring-1 ring-white/60 p-8 sm:p-10 flex flex-col gap-8"
-      >
-        <section className="flex flex-col items-center text-center gap-3">
-          <motion.img
-            src={profile.avatar}
-            alt="프로필 사진"
-            animate={{ y: [0, -6, 0] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            whileTap={{ scale: 0.92, rotate: -6 }}
-            className="w-24 h-24 rounded-full object-cover ring-4 ring-white shadow-md"
-          />
-          <motion.div
-            initial={{ y: 10 }}
-            animate={{ y: 0 }}
-            transition={{ delay: 0.15, duration: 0.5 }}
-          >
-            <h1 className="text-lg font-bold text-stone-800">{profile.name}</h1>
-            <p className="mt-1 text-sm text-stone-500 leading-relaxed">
-              {profile.bio}
-              <br />
-              {profile.subBio}
-            </p>
-          </motion.div>
-        </section>
+      <div className="relative w-full max-w-[420px]">
+        <motion.div
+          aria-hidden="true"
+          className="absolute -inset-3 rounded-[2.25rem] blur-xl opacity-70"
+          style={{
+            background:
+              "conic-gradient(from 0deg, #f6c98f, #f0a97a, #ffe3b8, #e8b88f, #f6c98f)",
+          }}
+          animate={{ rotate: 360 }}
+          transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+        />
+
+        <motion.main
+          initial={{ y: 16 }}
+          animate={{ y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="relative w-full bg-white/70 backdrop-blur-md rounded-3xl shadow-xl shadow-orange-900/10 ring-1 ring-white/60 p-8 sm:p-10 flex flex-col gap-8"
+        >
+          <section className="flex flex-col items-center text-center gap-3">
+            <span className="inline-flex items-center gap-1 rounded-full bg-stone-800/5 px-3 py-1 text-[11px] font-medium text-stone-500">
+              {greeting.emoji} {greeting.text}
+            </span>
+
+            <div className="relative">
+              <motion.img
+                src={profile.avatar}
+                alt="프로필 사진"
+                animate={{ y: [0, -6, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                whileTap={{ scale: 0.92, rotate: -6 }}
+                onTap={burstSparkles}
+                className="w-24 h-24 rounded-full object-cover ring-4 ring-white shadow-md cursor-pointer"
+              />
+              <AnimatePresence>
+                {sparkles.map((p) => {
+                  const rad = (p.angle * Math.PI) / 180;
+                  return (
+                    <motion.span
+                      key={p.id}
+                      initial={{ x: 0, y: 0, opacity: 1, scale: 0.6 }}
+                      animate={{
+                        x: Math.cos(rad) * 46,
+                        y: Math.sin(rad) * 46,
+                        opacity: 0,
+                        scale: 1,
+                      }}
+                      transition={{ duration: 0.7, ease: "easeOut" }}
+                      onAnimationComplete={() => removeSparkle(p.id)}
+                      className="pointer-events-none absolute left-1/2 top-1/2 text-base"
+                    >
+                      {p.emoji}
+                    </motion.span>
+                  );
+                })}
+              </AnimatePresence>
+            </div>
+
+            <motion.div
+              initial={{ y: 10 }}
+              animate={{ y: 0 }}
+              transition={{ delay: 0.15, duration: 0.5 }}
+            >
+              <h1 className="text-lg font-bold text-stone-800">{profile.name}</h1>
+              <p className="mt-1 text-sm text-stone-500 leading-relaxed">
+                {profile.bio}
+                <br />
+                {profile.subBio}
+              </p>
+            </motion.div>
+          </section>
 
         <section className="flex flex-col gap-3">
           {links.map((link, i) => (
@@ -121,7 +191,8 @@ export default function App() {
             © {new Date().getFullYear()} {profile.name}. All rights reserved.
           </p>
         </section>
-      </motion.main>
+        </motion.main>
+      </div>
 
       <AnimatePresence>
         {toast && (
