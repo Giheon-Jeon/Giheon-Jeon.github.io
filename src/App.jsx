@@ -118,7 +118,7 @@ export default function App() {
             ))}
           </div>
           <p className="text-xs text-stone-400">
-            © {new Date().getFullYear()} Jihyun. All rights reserved.
+            © {new Date().getFullYear()} {profile.name}. All rights reserved.
           </p>
         </section>
       </motion.main>
