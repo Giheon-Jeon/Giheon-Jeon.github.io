@@ -1,5 +1,5 @@
-import { useRef } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { useRef, useState } from "react";
+import { AnimatePresence, motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
 export default function LinkCard({ link, index }) {
   const cardRef = useRef(null);
@@ -9,6 +9,9 @@ export default function LinkCard({ link, index }) {
   const springY = useSpring(mvY, { stiffness: 300, damping: 20 });
   const rotateX = useTransform(springY, [-0.5, 0.5], [8, -8]);
   const rotateY = useTransform(springX, [-0.5, 0.5], [-8, 8]);
+
+  const [taps, setTaps] = useState([]);
+  const tapId = useRef(0);
 
   const handlePointerMove = (e) => {
     if (e.pointerType !== "mouse") return;
@@ -20,6 +23,20 @@ export default function LinkCard({ link, index }) {
   const handlePointerLeave = () => {
     mvX.set(0);
     mvY.set(0);
+  };
+
+  const handlePointerDown = (e) => {
+    if (e.pointerType === "mouse") return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const id = tapId.current++;
+    setTaps((prev) => [
+      ...prev,
+      { id, x: e.clientX - rect.left, y: e.clientY - rect.top },
+    ]);
+  };
+
+  const removeTap = (id) => {
+    setTaps((prev) => prev.filter((t) => t.id !== id));
   };
 
   const isDark = link.tone === "dark";
@@ -36,8 +53,9 @@ export default function LinkCard({ link, index }) {
       whileTap={{ scale: 0.96 }}
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
+      onPointerDown={handlePointerDown}
       style={{ rotateX, rotateY, transformPerspective: 500 }}
-      className={`group relative flex items-center justify-center gap-2 w-full rounded-2xl py-3.5 px-5 text-sm sm:text-base font-medium select-none
+      className={`group relative flex items-center justify-center gap-2 w-full rounded-2xl py-3.5 px-5 text-sm sm:text-base font-medium select-none overflow-hidden
         ${isDark ? "bg-stone-800 text-white" : "bg-white/80 text-stone-800 ring-1 ring-stone-200"}`}
     >
       <span
@@ -53,6 +71,31 @@ export default function LinkCard({ link, index }) {
           e.currentTarget.style.setProperty("--my", `${e.clientY - rect.top}px`);
         }}
       />
+
+      <AnimatePresence>
+        {taps.map((t) => (
+          <motion.span
+            key={t.id}
+            initial={{ opacity: 0.55, scale: 0 }}
+            animate={{ opacity: 0, scale: 3.2 }}
+            transition={{ duration: 0.55, ease: "easeOut" }}
+            onAnimationComplete={() => removeTap(t.id)}
+            className="pointer-events-none absolute rounded-full"
+            style={{
+              left: t.x,
+              top: t.y,
+              width: 24,
+              height: 24,
+              marginLeft: -12,
+              marginTop: -12,
+              background: isDark
+                ? "radial-gradient(circle, rgba(255,255,255,0.35), transparent 70%)"
+                : "radial-gradient(circle, rgba(233,168,96,0.45), transparent 70%)",
+            }}
+          />
+        ))}
+      </AnimatePresence>
+
       <span className="relative">{link.emoji}</span>
       <span className="relative">{link.label}</span>
     </motion.a>
