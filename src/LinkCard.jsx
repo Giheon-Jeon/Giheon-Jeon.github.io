@@ -30,8 +30,8 @@ export default function LinkCard({ link, index }) {
       href={link.href}
       target="_blank"
       rel="noopener noreferrer"
-      initial={{ opacity: 0, y: 24 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={{ y: 24 }}
+      animate={{ y: 0 }}
       transition={{ delay: 0.35 + index * 0.08, duration: 0.5, ease: "easeOut" }}
       whileTap={{ scale: 0.96 }}
       onPointerMove={handlePointerMove}

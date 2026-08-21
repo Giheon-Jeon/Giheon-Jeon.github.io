@@ -46,8 +46,8 @@ export default function App() {
       <AnimatedBackground />
 
       <motion.main
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ y: 16 }}
+        animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="relative w-full max-w-[420px] bg-white/70 backdrop-blur-md rounded-3xl shadow-xl shadow-orange-900/10 ring-1 ring-white/60 p-8 sm:p-10 flex flex-col gap-8"
       >
@@ -61,8 +61,8 @@ export default function App() {
             className="w-24 h-24 rounded-full object-cover ring-4 ring-white shadow-md"
           />
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ y: 10 }}
+            animate={{ y: 0 }}
             transition={{ delay: 0.15, duration: 0.5 }}
           >
             <h1 className="text-lg font-bold text-stone-800">{profile.name}</h1>
@@ -85,8 +85,8 @@ export default function App() {
                 key={e.id}
                 type="button"
                 onClick={() => copyEmail(e.address)}
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={{ y: 24 }}
+                animate={{ y: 0 }}
                 transition={{ delay: 0.35 + (links.length + i) * 0.08, duration: 0.5, ease: "easeOut" }}
                 whileTap={{ scale: 0.96 }}
                 className="flex-1 flex items-center justify-center gap-1.5 rounded-2xl bg-white/80 text-stone-800 font-medium py-3.5 px-3 text-xs sm:text-sm ring-1 ring-stone-200"
@@ -106,8 +106,8 @@ export default function App() {
                 target={s.id === "email" ? undefined : "_blank"}
                 rel="noopener noreferrer"
                 aria-label={s.label}
-                initial={{ opacity: 0, scale: 0.6 }}
-                animate={{ opacity: 1, scale: 1 }}
+                initial={{ scale: 0.6 }}
+                animate={{ scale: 1 }}
                 transition={{ delay: 0.7 + i * 0.06, type: "spring", stiffness: 260, damping: 16 }}
                 whileHover={{ y: -3, opacity: 0.75 }}
                 whileTap={{ scale: 0.85 }}
