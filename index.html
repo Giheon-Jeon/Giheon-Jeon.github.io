@@ -49,28 +49,15 @@
     border-radius: 9999px;
     filter: blur(36px);
     opacity: 0.7;
-    will-change: transform;
-    animation: drift 24s ease-in-out infinite;
   }
   .blob1 { width: 380px; height: 380px; top: -12%; left: -15%;
-    background: radial-gradient(circle at 35% 35%, #f6c98f, transparent 70%);
-    animation-duration: 22s; }
+    background: radial-gradient(circle at 35% 35%, #f6c98f, transparent 70%); }
   .blob2 { width: 320px; height: 320px; top: 55%; left: 58%;
-    background: radial-gradient(circle at 35% 35%, #f0a97a, transparent 70%);
-    animation-duration: 27s; animation-delay: -4s; }
+    background: radial-gradient(circle at 35% 35%, #f0a97a, transparent 70%); }
   .blob3 { width: 260px; height: 260px; top: 68%; left: -12%;
-    background: radial-gradient(circle at 35% 35%, #ffe3b8, transparent 70%);
-    animation-duration: 19s; animation-delay: -8s; }
+    background: radial-gradient(circle at 35% 35%, #ffe3b8, transparent 70%); }
   .blob4 { width: 230px; height: 230px; top: 4%; left: 68%;
-    background: radial-gradient(circle at 35% 35%, #e8b88f, transparent 70%);
-    animation-duration: 25s; animation-delay: -12s; }
-
-  @keyframes drift {
-    0%   { transform: translate3d(0, 0, 0) scale(1); }
-    33%  { transform: translate3d(4%, 6%, 0) scale(1.06); }
-    66%  { transform: translate3d(-4%, -3%, 0) scale(0.96); }
-    100% { transform: translate3d(0, 0, 0) scale(1); }
-  }
+    background: radial-gradient(circle at 35% 35%, #e8b88f, transparent 70%); }
 
   .bg-veil {
     position: absolute;
@@ -86,10 +73,6 @@
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .blob { animation: none; }
-  }
-
   /* ---------- 카드 ---------- */
   .card-wrap { position: relative; width: 100%; max-width: 420px; }
   .halo {
@@ -99,10 +82,7 @@
     filter: blur(18px);
     opacity: 0.7;
     background: conic-gradient(from 0deg, #f6c98f, #f0a97a, #ffe3b8, #e8b88f, #f6c98f);
-    animation: spin 16s linear infinite;
-    will-change: transform;
   }
-  @keyframes spin { to { transform: rotate(360deg); } }
 
   .card {
     position: relative;
