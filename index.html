@@ -26,85 +26,93 @@
   body {
     font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   }
-  .bg-warm-gradient {
-    background: linear-gradient(160deg, #fdf6ec 0%, #f8e9d2 35%, #f3d9b8 70%, #eec89e 100%);
-  }
-  .link-card:active {
-    transform: scale(0.98);
-  }
-  .email-btn:active {
-    transform: scale(0.98);
-  }
 </style>
 </head>
 
-<body class="bg-warm-gradient min-h-screen flex items-center justify-center p-6">
+<body class="bg-[#faf6f0] min-h-screen flex items-center justify-center p-6">
 
-  <main class="w-full max-w-[420px] bg-white rounded-3xl shadow-lg p-8 sm:p-10 flex flex-col gap-8">
+  <main class="w-full max-w-[400px] bg-white rounded-[28px] ring-1 ring-stone-100 shadow-[0_8px_30px_-12px_rgba(120,72,20,0.15)] p-7 sm:p-9 flex flex-col gap-8">
 
+    <!-- 프로필 -->
     <section class="flex flex-col items-center text-center gap-3">
       <img
         src="https://placehold.co/160x160/f3d9b8/6b4423?text=%3A%29&font=roboto"
         alt="프로필 사진"
-        class="w-24 h-24 rounded-full object-cover ring-4 ring-white shadow-md"
+        class="w-20 h-20 rounded-full object-cover ring-4 ring-white shadow-sm"
       />
       <div>
-        <h1 class="text-lg font-bold text-stone-800">전기헌 Jeon GiHeon</h1>
-        <p class="mt-1 text-sm text-stone-500 leading-relaxed">
+        <h1 class="text-lg font-bold tracking-tight text-stone-900">전기헌 Jeon GiHeon</h1>
+        <p class="mt-1.5 text-sm text-stone-500 leading-relaxed">
           일상을 남깁니다 🌿<br />
           아래에서 제 다른 공간들을 만나보세요
         </p>
       </div>
     </section>
 
-    <section class="flex flex-col gap-3">
+    <!-- 링크 -->
+    <section class="flex flex-col gap-2.5">
       <a href="https://instagram.com/gyeon.rus" target="_blank" rel="noopener noreferrer"
-         class="link-card flex items-center justify-center gap-2 w-full rounded-2xl bg-stone-800 text-white font-medium py-3.5 px-5 text-sm sm:text-base">
-        📷 Instagram
-      </a>
-      <a href="https://blog.naver.com/jgh030814" target="_blank" rel="noopener noreferrer"
-         class="link-card flex items-center justify-center gap-2 w-full rounded-2xl bg-white text-stone-800 font-medium py-3.5 px-5 text-sm sm:text-base ring-1 ring-stone-200">
-        ✍️ 블로그
-      </a>
-      <a href="https://github.com/Giheon-Jeon" target="_blank" rel="noopener noreferrer"
-         class="link-card flex items-center justify-center gap-2 w-full rounded-2xl bg-white text-stone-800 font-medium py-3.5 px-5 text-sm sm:text-base ring-1 ring-stone-200">
-        💻 GitHub
+         class="group flex items-center gap-3 w-full rounded-2xl ring-1 ring-stone-100 px-4 py-3 transition-colors duration-150 hover:bg-stone-50 active:bg-stone-100">
+        <span class="flex items-center justify-center w-10 h-10 rounded-xl text-white text-base shrink-0"
+              style="background: linear-gradient(135deg, #f9906f, #d6417c 55%, #7c3aed)">📷</span>
+        <span class="flex-1 text-left font-medium text-sm text-stone-800">Instagram</span>
+        <svg class="w-4 h-4 text-stone-300 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
       </a>
 
-      <div class="flex gap-3">
-        <button type="button" class="email-btn flex-1 flex items-center justify-center gap-1.5 rounded-2xl bg-white text-stone-800 font-medium py-3.5 px-3 text-xs sm:text-sm ring-1 ring-stone-200" data-email="jgh030814@gmail.com">
-          ✉️ 개인 이메일 복사
+      <a href="https://blog.naver.com/jgh030814" target="_blank" rel="noopener noreferrer"
+         class="group flex items-center gap-3 w-full rounded-2xl ring-1 ring-stone-100 px-4 py-3 transition-colors duration-150 hover:bg-stone-50 active:bg-stone-100">
+        <span class="flex items-center justify-center w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 text-base shrink-0">✍️</span>
+        <span class="flex-1 text-left font-medium text-sm text-stone-800">블로그</span>
+        <svg class="w-4 h-4 text-stone-300 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+      </a>
+
+      <a href="https://github.com/Giheon-Jeon" target="_blank" rel="noopener noreferrer"
+         class="group flex items-center gap-3 w-full rounded-2xl ring-1 ring-stone-100 px-4 py-3 transition-colors duration-150 hover:bg-stone-50 active:bg-stone-100">
+        <span class="flex items-center justify-center w-10 h-10 rounded-xl bg-stone-900 text-white text-base shrink-0">💻</span>
+        <span class="flex-1 text-left font-medium text-sm text-stone-800">GitHub</span>
+        <svg class="w-4 h-4 text-stone-300 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+      </a>
+
+      <div class="flex gap-2.5 pt-0.5">
+        <button type="button" data-email="jgh030814@gmail.com"
+          class="email-btn flex-1 flex items-center justify-center gap-1.5 rounded-2xl ring-1 ring-stone-100 py-3 px-2 text-xs font-medium text-stone-600 transition-colors duration-150 hover:bg-stone-50 active:bg-stone-100">
+          ✉️ 개인 이메일
         </button>
-        <button type="button" class="email-btn flex-1 flex items-center justify-center gap-1.5 rounded-2xl bg-white text-stone-800 font-medium py-3.5 px-3 text-xs sm:text-sm ring-1 ring-stone-200" data-email="jgh030814@mju.ac.kr">
-          🎓 학교 이메일 복사
+        <button type="button" data-email="jgh030814@mju.ac.kr"
+          class="email-btn flex-1 flex items-center justify-center gap-1.5 rounded-2xl ring-1 ring-stone-100 py-3 px-2 text-xs font-medium text-stone-600 transition-colors duration-150 hover:bg-stone-50 active:bg-stone-100">
+          🎓 학교 이메일
         </button>
       </div>
     </section>
 
-    <section class="flex flex-col items-center gap-4 pt-2 border-t border-stone-200">
-      <div class="flex items-center gap-5 pt-4">
-        <a href="https://instagram.com/gyeon.rus" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="text-stone-600">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+    <!-- 소셜 + 카피라이트 -->
+    <section class="flex flex-col items-center gap-4 pt-1 border-t border-stone-100">
+      <div class="flex items-center gap-3 pt-5">
+        <a href="https://instagram.com/gyeon.rus" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
+           class="flex items-center justify-center w-9 h-9 rounded-full bg-stone-50 text-stone-500 transition-colors duration-150 hover:bg-stone-100">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4.5 h-4.5">
             <path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.06 2.1.24 2.9.55.7.27 1.3.65 1.9 1.25.6.6 1 1.2 1.25 1.9.3.8.48 1.7.55 2.9.06 1.3.07 1.7.07 4.9s0 3.6-.07 4.9c-.06 1.2-.24 2.1-.55 2.9-.27.7-.65 1.3-1.25 1.9-.6.6-1.2 1-1.9 1.25-.8.3-1.7.48-2.9.55-1.3.06-1.7.07-4.9.07s-3.6 0-4.9-.07c-1.2-.06-2.1-.24-2.9-.55-.7-.27-1.3-.65-1.9-1.25-.6-.6-1-1.2-1.25-1.9-.3-.8-.48-1.7-.55-2.9C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.9c.06-1.2.24-2.1.55-2.9.27-.7.65-1.3 1.25-1.9.6-.6 1.2-1 1.9-1.25.8-.3 1.7-.48 2.9-.55C8.4 2.2 8.8 2.2 12 2.2zm0 1.8c-3.15 0-3.5 0-4.75.07-1 .05-1.6.2-1.98.35-.5.19-.86.42-1.24.8-.38.38-.6.74-.8 1.24-.14.38-.3 1-.35 1.98C2.8 8.5 2.8 8.85 2.8 12s0 3.5.07 4.75c.05 1 .2 1.6.35 1.98.19.5.42.86.8 1.24.38.38.74.6 1.24.8.38.14 1 .3 1.98.35 1.25.07 1.6.07 4.75.07s3.5 0 4.75-.07c1-.05 1.6-.2 1.98-.35.5-.19.86-.42 1.24-.8.38-.38.6-.74.8-1.24.14-.38.3-1 .35-1.98.07-1.25.07-1.6.07-4.75s0-3.5-.07-4.75c-.05-1-.2-1.6-.35-1.98-.19-.5-.42-.86-.8-1.24-.38-.38-.74-.6-1.24-.8-.38-.14-1-.3-1.98-.35C15.5 4 15.15 4 12 4zm0 3.4a4.6 4.6 0 110 9.2 4.6 4.6 0 010-9.2zm0 1.8a2.8 2.8 0 100 5.6 2.8 2.8 0 000-5.6zm5.85-2a1.08 1.08 0 11-2.16 0 1.08 1.08 0 012.16 0z"/>
           </svg>
         </a>
-        <a href="https://github.com/Giheon-Jeon" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="text-stone-600">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+        <a href="https://github.com/Giheon-Jeon" target="_blank" rel="noopener noreferrer" aria-label="GitHub"
+           class="flex items-center justify-center w-9 h-9 rounded-full bg-stone-50 text-stone-500 transition-colors duration-150 hover:bg-stone-100">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4.5 h-4.5">
             <path d="M12 2C6.48 2 2 6.58 2 12.19c0 4.49 2.87 8.3 6.84 9.64.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.88-2.78.61-3.37-1.21-3.37-1.21-.46-1.19-1.11-1.51-1.11-1.51-.91-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.72 0 0 .84-.28 2.75 1.05a9.3 9.3 0 015 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.46.1 2.72.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.79-4.57 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.02 10.02 0 0022 12.19C22 6.58 17.52 2 12 2z"/>
           </svg>
         </a>
-        <a href="mailto:jgh030814@gmail.com" aria-label="이메일" class="text-stone-600">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="w-5 h-5">
+        <a href="mailto:jgh030814@gmail.com" aria-label="이메일"
+           class="flex items-center justify-center w-9 h-9 rounded-full bg-stone-50 text-stone-500 transition-colors duration-150 hover:bg-stone-100">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="w-4.5 h-4.5">
             <rect x="3" y="5" width="18" height="14" rx="2" />
             <path d="M3 7l9 6 9-6" />
           </svg>
         </a>
       </div>
-      <p class="text-xs text-stone-400" id="copyright"></p>
+      <p class="text-[11px] text-stone-400" id="copyright"></p>
     </section>
   </main>
 
-  <div id="toast" class="hidden fixed bottom-8 left-1/2 -translate-x-1/2 bg-stone-800 text-white text-xs font-medium px-4 py-2.5 rounded-full shadow-lg z-50"></div>
+  <div id="toast" class="hidden fixed bottom-8 left-1/2 -translate-x-1/2 bg-stone-900 text-white text-xs font-medium px-4 py-2.5 rounded-full shadow-lg z-50"></div>
 
   <script>
     document.getElementById("copyright").textContent = `© ${new Date().getFullYear()} 전기헌 Jeon GiHeon. All rights reserved.`;
